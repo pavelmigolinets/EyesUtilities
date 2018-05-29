@@ -3,16 +3,6 @@ package com.applitools.utils;
 import com.sun.glass.ui.Size;
 import com.sun.xml.internal.ws.util.StringUtils;
 import org.apache.commons.io.FileUtils;
-import org.apache.http.Header;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.client.HttpResponseException;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpDelete;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
 
 import javax.imageio.stream.FileImageOutputStream;
 import javax.imageio.stream.ImageOutputStream;
@@ -20,22 +10,27 @@ import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.image.BufferedImage;
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Calendar;
+import java.util.EnumSet;
 import java.util.List;
+import java.util.TimeZone;
 
 public class Utils {
+
     public static <T> T selectNotNull(T... vars) {
         T t = null;
         for (T var : vars)
             if (var != null)
-                if (t != null) return null;
-                else t = var;
+                if (t != null)
+                    return null;
+                else
+                    t = var;
         return t;
     }
-
 
     public static <T extends Enum<T>> T parseEnum(Class<T> c, String string) {
         if (c != null && string != null) {
@@ -68,9 +63,9 @@ public class Utils {
             FileUtils.copyURLToFile(new URL(imageUrl), destinationFile);
         } catch (IOException e) {
             System.out.printf("Unable to process image from %s to %s \n Error text: %s",
-                    imageUrl,
-                    destinationFile,
-                    e.getMessage());
+                              imageUrl,
+                              destinationFile,
+                              e.getMessage());
             throw e;
         }
     }
@@ -92,7 +87,8 @@ public class Utils {
             for (BufferedImage image : images) {
                 BufferedImage normalized = new BufferedImage(max.width, max.height, image.getType());
                 normalized.getGraphics().drawImage(image, 0, 0, null);
-                if (writer == null) writer = new GifSequenceWriter(output, image.getType(), timeBetweenFrames, true);
+                if (writer == null)
+                    writer = new GifSequenceWriter(output, image.getType(), timeBetweenFrames, true);
                 writer.writeToSequence(normalized);
             }
         } finally {
@@ -104,8 +100,10 @@ public class Utils {
     private static Size getMaxSize(List<BufferedImage> images) {
         Size max = new Size(0, 0);
         for (BufferedImage image : images) {
-            if (max.height < image.getHeight()) max.height = image.getHeight();
-            if (max.width < image.getWidth()) max.width = image.getWidth();
+            if (max.height < image.getHeight())
+                max.height = image.getHeight();
+            if (max.width < image.getWidth())
+                max.width = image.getWidth();
         }
         return max;
     }

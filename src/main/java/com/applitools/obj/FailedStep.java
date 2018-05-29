@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 public class FailedStep extends Step {
+
     private static final int ANIMATION_TRANSITION_INTERVAL = 1000;
     private static final String DIFF_ARTIFACT_EXT = "png";
     private static final String ANIDIFF_ARTIFACT_EXT = "gif";
@@ -60,7 +61,8 @@ public class FailedStep extends Step {
         List<BufferedImage> images = new ArrayList<BufferedImage>(3);
         images.add(ImageIO.read(new URL(baselineImg)));
         images.add(ImageIO.read(new URL(actualImg)));
-        if (diffImg != null) images.add(ImageIO.read(new URL(diffImg)));
+        if (diffImg != null)
+            images.add(ImageIO.read(new URL(diffImg)));
         Utils.createAnimatedGif(images, target, transitionInterval);
     }
 
@@ -79,7 +81,8 @@ public class FailedStep extends Step {
         File destination = pathGenerator.build(params).generateFile();
         pathGenerator.ensureTargetFolder();
 
-        if (skipIfExists && destination.exists()) return destination.toString();
+        if (skipIfExists && destination.exists())
+            return destination.toString();
 
         saveAnimatedDiff(
                 expectedImageURL.toString(),
@@ -91,5 +94,4 @@ public class FailedStep extends Step {
 
         return destination.toString(); //TODO relativize
     }
-
 }

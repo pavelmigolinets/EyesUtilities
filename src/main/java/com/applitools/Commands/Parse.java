@@ -10,6 +10,7 @@ import java.util.List;
 
 @Parameters(commandDescription = "Parse result url and extract it's components", hidden = true)
 public class Parse implements Command {
+
     @Parameter(description = "<result url>")
     private List<String> url;
     @Parameter(names = "-b", description = "Get only batch id")
@@ -18,7 +19,8 @@ public class Parse implements Command {
     private boolean onlySessionId = false;
 
     public void run() {
-        if (url.size() != 1) throw new InvalidParameterException("must specify only one url");
+        if (url.size() != 1)
+            throw new InvalidParameterException("must specify only one url");
         ResultUrl resultUrl = new ResultUrl(url.get(0));
 
         if (!onlyBatchId && !onlySessionId) {

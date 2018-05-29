@@ -1,6 +1,7 @@
 package com.applitools.obj.Contexts;
 
 public class BranchesAPIContext {
+
     private static final String BRANCHES_URL_TMPL = "https://%s/api/baselines/copybranch?accesskey=%s";
 
     private static BranchesAPIContext context_;

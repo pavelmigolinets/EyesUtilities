@@ -1,7 +1,11 @@
 package com.applitools.obj.Serialized;
 
-import com.applitools.obj.*;
 import com.applitools.obj.Contexts.ResultsAPIContext;
+import com.applitools.obj.FailedStep;
+import com.applitools.obj.PathGenerator;
+import com.applitools.obj.Result;
+import com.applitools.obj.Status;
+import com.applitools.obj.Step;
 import com.applitools.utils.Utils;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
@@ -18,6 +22,7 @@ import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TestInfo {
+
     private static final String PLAYBACK_FILE_TMPL = "%s//file:test_playback.gif";
 
     //region Fields
@@ -191,17 +196,21 @@ public class TestInfo {
 
     public int getTotalBaselineSteps() {
         int count = 0;
-        if (ExpectedAppOutput == null) return count;
+        if (ExpectedAppOutput == null)
+            return count;
         for (ExpectedStepResult step : ExpectedAppOutput)
-            if (step != null) ++count;
+            if (step != null)
+                ++count;
         return count;
     }
 
     public int getTotalActualSteps() {
         int count = 0;
-        if (ActualAppOutput == null) return count;
+        if (ActualAppOutput == null)
+            return count;
         for (ActualStepResult step : ActualAppOutput)
-            if (step != null) ++count;
+            if (step != null)
+                ++count;
         return count;
     }
 
@@ -250,7 +259,8 @@ public class TestInfo {
 
     public List<Step> getSteps() {
         LinkedList<Step> steps = new LinkedList();
-        if (ExpectedAppOutput == null || ActualAppOutput == null) return steps;
+        if (ExpectedAppOutput == null || ActualAppOutput == null)
+            return steps;
 
         int count = Math.max(ExpectedAppOutput.size(), ActualAppOutput.size());
 
@@ -305,9 +315,12 @@ public class TestInfo {
     }
 
     public String getResult() {
-        if (getIsNew()) return "New";
-        else if (getIsDifferent()) return "Mismatched";
-        else return "Matched";
+        if (getIsNew())
+            return "New";
+        else if (getIsDifferent())
+            return "Mismatched";
+        else
+            return "Matched";
     }
 
     //endregion
@@ -494,7 +507,8 @@ public class TestInfo {
     }
 
     private Result[] getStepsResults() {
-        if (stepsResults != null) return stepsResults;
+        if (stepsResults != null)
+            return stepsResults;
 
         List<Step> steps = getSteps();
         stepsResults = new Result[steps.size()];
@@ -516,6 +530,4 @@ public class TestInfo {
         return count;
     }
     //endregion
-
-
 }

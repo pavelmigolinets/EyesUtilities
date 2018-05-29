@@ -1,9 +1,9 @@
 package com.applitools.Commands;
 
-import com.applitools.obj.PathGenerator;
-import com.applitools.obj.Serialized.BatchInfo;
 import com.applitools.obj.Contexts.ResultsAPIContext;
+import com.applitools.obj.PathGenerator;
 import com.applitools.obj.ResultUrl;
+import com.applitools.obj.Serialized.BatchInfo;
 import com.applitools.obj.Serialized.TestInfo;
 import com.beust.jcommander.Parameter;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class ResultsAPIExtract extends ResultsAPI {
+
     private static ObjectMapper mapper = new ObjectMapper();
 
     @Parameter(names = {"-d", "--destination"}, description = "Destination folder/template to save the results")
@@ -49,7 +50,8 @@ public abstract class ResultsAPIExtract extends ResultsAPI {
                 System.out.printf("Done\n");
             }
             System.out.println("Batch download done\n");
-        } else return;//TODO except
+        } else
+            return;//TODO except
     }
 
     private Map<String, String> getPathParams() {

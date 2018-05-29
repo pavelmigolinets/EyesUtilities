@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
  * Created by yanir on 07/12/2016.
  */
 public class ResultUrl {
+
     //TODO consider http
     private static final String RESULT_REGEX = "^http(s?):\\/\\/(?<serverURL>.+)\\/app\\/(sessions|batches)\\/(?<batchId>\\d+)\\/?(?<sessionId>\\d+)?.*$";
     private final String batchId_;
@@ -18,7 +19,8 @@ public class ResultUrl {
         url_ = url;
         Pattern pattern = Pattern.compile(RESULT_REGEX);
         Matcher matcher = pattern.matcher(url);
-        if (!matcher.find()) ; //TODO error
+        if (!matcher.find())
+            ; //TODO error
         batchId_ = matcher.group("batchId");
         sessionId_ = matcher.group("sessionId");
         serverURL_ = matcher.group("serverURL");

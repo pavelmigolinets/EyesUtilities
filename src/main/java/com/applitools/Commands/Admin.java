@@ -4,22 +4,20 @@ import com.applitools.obj.AdminApi;
 import com.applitools.obj.Serialized.Admin.Account;
 import com.applitools.obj.Serialized.Admin.Subscriber;
 import com.applitools.obj.Serialized.Admin.User;
-import com.applitools.utils.Utils;
 import com.applitools.utils.Validate;
-import com.beust.jcommander.*;
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringUtils;
+import com.beust.jcommander.JCommander;
+import com.beust.jcommander.Parameter;
+import com.beust.jcommander.Parameters;
 import org.apache.commons.lang.WordUtils;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 @Parameters(commandDescription = "Manage users and teams on the server")
 public class Admin implements Command {
+
     private static final String GETID = "getId";
     private static final String GETTEAMS = "getTeams";
     private static final String GETUSERS = "getUsers";
@@ -34,6 +32,7 @@ public class Admin implements Command {
     //region sub commadns
     @Parameters(commandDescription = "Get user-id by providing username and password")
     private abstract class AdminSubCommand implements Command {
+
         @Parameter(names = {"-as", "--server"}, description = "Applitools server url")
         protected String server = "eyes.applitools.com";
         @Parameter(names = {"-un", "--username"}, required = true)
@@ -41,6 +40,7 @@ public class Admin implements Command {
     }
 
     private abstract class AdminOrgSubCommand extends AdminSubCommand {
+
         @Parameter(names = {"-or", "--orgId"}, description = "Organization id as it appears in your urls", required = true)
         protected String orgId;
         @Parameter(names = {"-ui", "--userId"}, description = "User id as it was extracted from getId command", required = true)
@@ -49,6 +49,7 @@ public class Admin implements Command {
 
     @Parameters(commandDescription = "Exchange username and password to user-id")
     private class GetId extends AdminSubCommand {
+
         @Parameter(names = {"-up", "--password"}, required = true)
         private String password;
 
@@ -60,6 +61,7 @@ public class Admin implements Command {
 
     @Parameters(commandDescription = "List all the teams in organization")
     private class GetTeams extends AdminOrgSubCommand {
+
         public void run() throws Exception {
             AdminApi api = new AdminApi(server, orgId, user, userId);
             Account[] accounts = api.getAccounts();
@@ -71,6 +73,7 @@ public class Admin implements Command {
 
     @Parameters(commandDescription = "List all the users in a specific team in the organization")
     private class GetUsers extends AdminOrgSubCommand {
+
         private static final String TABS = "|%-35s|%-20s|%-35s|%-7s|%-8s|\n";
         @Parameter(names = {"-ti", "--teamId"}, description = "The team id", required = true)
         private String teamId;
@@ -88,18 +91,19 @@ public class Admin implements Command {
                 User currUser = api.getUserById(sub.getName());
                 if (currUser == null) {
                     System.out.printf(TABS,
-                            currUser.getId(),
-                            currUser.getFullName(),
-                            currUser.getEmail(),
-                            sub.getIsAdmin() ? "   x  " : "",
-                            sub.getIsViewer() ? "    x  " : "");
+                                      currUser.getId(),
+                                      currUser.getFullName(),
+                                      currUser.getEmail(),
+                                      sub.getIsAdmin() ? "   x  " : "",
+                                      sub.getIsViewer() ? "    x  " : "");
                 }
             }
         }
 
         private Account find(Account[] accounts, String teamId) {
             for (Account account : accounts) {
-                if (account.getId().compareTo(teamId) == 0) return account;
+                if (account.getId().compareTo(teamId) == 0)
+                    return account;
             }
             return null;
         }
@@ -107,6 +111,7 @@ public class Admin implements Command {
 
     @Parameters(commandDescription = "Add New Team")
     private class AddNewTeam extends AdminOrgSubCommand {
+
         @Parameter(names = {"-tn", "--teamName"}, description = "Add new team", required = true)
         private String teamName;
 
@@ -119,6 +124,7 @@ public class Admin implements Command {
 
     @Parameters(commandDescription = "Add a new user to team")
     private class AddUser extends AdminOrgSubCommand {
+
         @Parameter(names = {"-ti", "--teamId"}, description = "Team id", required = true)
         private String teamId;
         @Parameter(names = {"-ne", "--newUserEmail"}, description = "User Email")
@@ -143,7 +149,7 @@ public class Admin implements Command {
                 currUser = api.getUserByEmail(newUserEmail);
 
             if (currUser == null) {
-                if (newUserEmail==null)
+                if (newUserEmail == null)
                     throw new RuntimeException("Email required!"); //New user require email field
                 if (newUserId == null)
                     newUserId = newUserEmail;//Decucing userid from email
@@ -162,7 +168,6 @@ public class Admin implements Command {
 
                 api.addUser(currUser); //Adding user to the org
             }
-
 
             Account account = api.getAccount(teamId);
             if (account == null)
@@ -280,5 +285,4 @@ public class Admin implements Command {
         //But now will print help
         throw new RuntimeException("No parameters were provided");
     }
-
 }

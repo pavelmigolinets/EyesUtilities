@@ -5,7 +5,11 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpStatus;
 import org.apache.http.StatusLine;
-import org.apache.http.client.methods.*;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpDelete;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
@@ -15,6 +19,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import java.io.IOException;
 
 public abstract class LongTaskAPI implements Command {
+
     private static final String LOCATION_HEADER = "Location";
     private static ObjectMapper mapper = new ObjectMapper();
 
@@ -44,6 +49,7 @@ public abstract class LongTaskAPI implements Command {
             client.close();
         }
     }
+
     @JsonIgnore
     public abstract String getTaskUrl();
 
@@ -62,11 +68,10 @@ public abstract class LongTaskAPI implements Command {
         post.addHeader("Eyes-Date", Utils.getRFC1123Date());
     }
 
-
     private static void throwUnexpectedResponse(StatusLine statusLine) {
         throw new RuntimeException(String.format("Unexpected response from request, code: %s, message: %s \n",
-                statusLine.getStatusCode(),
-                statusLine.getReasonPhrase()));
+                                                 statusLine.getStatusCode(),
+                                                 statusLine.getReasonPhrase()));
     }
 
     private static Header waitForFinish(Header location, CloseableHttpClient client) throws IOException, InterruptedException {

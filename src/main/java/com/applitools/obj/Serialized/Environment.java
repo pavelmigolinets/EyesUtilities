@@ -6,6 +6,7 @@ import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Environment {
+
     private String inferred;
     private String os;
     private String hostingApp;
@@ -47,6 +48,4 @@ public class Environment {
     public void setDisplaySize(Map<String, String> displaySize) {
         this.displaySize = displaySize;
     }
-
-
 }

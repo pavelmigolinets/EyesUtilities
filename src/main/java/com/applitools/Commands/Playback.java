@@ -8,6 +8,7 @@ import java.io.IOException;
 
 @Parameters(commandDescription = "Generate playback animation")
 public class Playback extends ResultsAPIExtract {
+
     @Parameter(names = {"-i", "-interval"}, description = "Transition interval between the images")
     private int interval = 1000;
 

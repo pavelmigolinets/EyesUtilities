@@ -13,6 +13,7 @@ import java.util.HashMap;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BatchInfo {
+
     private static final ObjectMapper mapper = new ObjectMapper();
     private TestInfo[] tests;
 
@@ -95,9 +96,9 @@ public class BatchInfo {
         return tests;
     }
 
-//    public void setTestsNew(int testsNew) {
-//        this.testsNew = testsNew;
-//    }
+    //    public void setTestsNew(int testsNew) {
+    //        this.testsNew = testsNew;
+    //    }
 
     public String getUrl() {
         return url;
@@ -112,12 +113,14 @@ public class BatchInfo {
         params.put("batch_id", batchId);
         params.put("batch_name", getName());
         this.pathGenerator = pathGenerator.build(params);
-        for (TestInfo ti : tests) ti.setPathGenerator(this.pathGenerator);
+        for (TestInfo ti : tests)
+            ti.setPathGenerator(this.pathGenerator);
     }
 
     public void setContext(ResultsAPIContext context) {
         this.context = context;
-        for (TestInfo ti : tests) ti.setContext(context);
+        for (TestInfo ti : tests)
+            ti.setContext(context);
     }
 
     //region privates
@@ -132,9 +135,12 @@ public class BatchInfo {
     private void calculateBatchMetrics() {
         for (TestInfo test : tests) {
             //if (!test.getState().equalsIgnoreCase("Completed")) ++testsRunning;
-            if (test.getIsNew()) ++testsNew;
-            else if (test.getIsDifferent()) ++testsMismatched;
-            else ++testsMatched;
+            if (test.getIsNew())
+                ++testsNew;
+            else if (test.getIsDifferent())
+                ++testsMismatched;
+            else
+                ++testsMatched;
 
             switch (test.getStatus()) {
                 case Passed:
@@ -166,15 +172,20 @@ public class BatchInfo {
     //region data getters
     //region batch data
     public Status getStatus() {
-        if (testsRunning > 0) return Status.Running;
-        if (testsAborted > 0 || testsUnresolved > 0) return Status.Unresolved;
-        if (testsFailed > 0) return Status.Failed;
+        if (testsRunning > 0)
+            return Status.Running;
+        if (testsAborted > 0 || testsUnresolved > 0)
+            return Status.Unresolved;
+        if (testsFailed > 0)
+            return Status.Failed;
         return Status.Passed;
     }
 
     public Result getResult() {
-        if (testsRunning > 0) return Result.Running;
-        if (testsMismatched > 0) return Result.Mismatched;
+        if (testsRunning > 0)
+            return Result.Running;
+        if (testsMismatched > 0)
+            return Result.Mismatched;
         return Result.Matched;
     }
     //endregion

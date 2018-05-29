@@ -1,6 +1,5 @@
 package com.applitools.obj.Serialized.Admin;
 
-
 import com.applitools.obj.AdminApi;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
@@ -10,6 +9,7 @@ import java.util.HashMap;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Account {
+
     private static final String ACCOUNT_API = "accounts/%s";
 
     private String id;
@@ -24,7 +24,6 @@ public class Account {
     public Account(String name) {
         this(name, null);
     }
-
 
     public Account(String name, AdminApi api) {
         this.name = name;
@@ -68,10 +67,10 @@ public class Account {
 
         String account = String.format(ACCOUNT_API, id);
         account = String.format(AdminApi.GENERAL_API,
-                apiref_.getServer(),
-                account,
-                apiref_.getUsername(),
-                apiref_.getUserId());
+                                apiref_.getServer(),
+                                account,
+                                apiref_.getUsername(),
+                                apiref_.getUserId());
 
         members.put(user.id, subscriber);
 
@@ -95,10 +94,10 @@ public class Account {
 
         String account = String.format(ACCOUNT_API, id);
         account = String.format(AdminApi.GENERAL_API,
-                apiref_.getServer(),
-                account,
-                apiref_.getUsername(),
-                apiref_.getUserId());
+                                apiref_.getServer(),
+                                account,
+                                apiref_.getUsername(),
+                                apiref_.getUserId());
         try {
             AdminApi.put(account, this);
         } catch (IOException e) {
@@ -110,10 +109,10 @@ public class Account {
     public void update() throws IOException {
         String account = String.format(ACCOUNT_API, id);
         account = String.format(AdminApi.GENERAL_API,
-                apiref_.getServer(),
-                account,
-                apiref_.getUsername(),
-                apiref_.getUserId());
+                                apiref_.getServer(),
+                                account,
+                                apiref_.getUsername(),
+                                apiref_.getUserId());
 
         AdminApi.put(account, this);
     }

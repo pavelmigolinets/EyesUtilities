@@ -23,7 +23,7 @@ public class AnimatedDiffs extends ResultsAPIExtract {
         super(url, viewKey, destination);
     }
 
-    protected void runPerTest(TestInfo ti) throws IOException {
+    protected void runPerTest(TestInfo ti) {
         downloadTestStepsAnimation(ti);
     }
 

@@ -2,11 +2,11 @@ package com.applitools;
 
 import com.applitools.Commands.*;
 import com.beust.jcommander.JCommander;
-import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 
 @Parameters(commandDescription = "A 'swiss knife' made to get advanced functionality out of Applitools api")
 public class EyesUtilities {
+
     //TODO add proxy
     private Parse parser = new Parse();
     private DownloadDiffs downloadDiffs = new DownloadDiffs();

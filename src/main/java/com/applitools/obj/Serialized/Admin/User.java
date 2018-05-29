@@ -1,6 +1,7 @@
 package com.applitools.obj.Serialized.Admin;
 
 public class User {
+
     String id;
     String email;
     String fullName;
@@ -55,5 +56,4 @@ public class User {
     public void setLastSessionStartedAt(String lastSessionStartedAt) {
         this.lastSessionStartedAt = lastSessionStartedAt;
     }
-
 }

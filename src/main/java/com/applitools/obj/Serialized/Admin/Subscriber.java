@@ -1,6 +1,7 @@
 package com.applitools.obj.Serialized.Admin;
 
 public class Subscriber {
+
     private String name; //username
     private boolean isViewer;
     private boolean isAdmin;

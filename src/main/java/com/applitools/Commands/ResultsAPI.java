@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class ResultsAPI implements Command {
+
     @Parameter(description = "<result url(s)>", required = true)
     private List<String> urls;
 
@@ -18,13 +19,14 @@ public abstract class ResultsAPI implements Command {
     }
 
     public ResultsAPI(String resUrl, String viewKey) {
-        this.urls = new ArrayList<String>();
+        this.urls = new ArrayList<>();
         this.urls.add(resUrl);
         this.viewKey = viewKey;
     }
 
     protected ResultUrl getUrl() {
-        if (urls.size() != 1) throw new InvalidParameterException("must specify exactly one url");
+        if (urls.size() != 1)
+            throw new InvalidParameterException("must specify exactly one url");
         return new ResultUrl(urls.get(0));
     }
 

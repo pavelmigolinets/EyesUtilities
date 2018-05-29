@@ -1,15 +1,14 @@
 package com.applitools.obj;
 
-import javafx.scene.shape.Path;
 import org.apache.commons.lang.StringUtils;
 
 import java.io.File;
-import java.security.InvalidParameterException;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class PathGenerator {
+
     private static final Pattern FILE_PATTERN_PATTERN = Pattern.compile("^(?<path>.*)\\/file:(?<file>.*\\.\\{file_ext\\})$");
     private static String PARAM_TEMPLATE_REGEX = "\\{%s\\}";
 
@@ -51,12 +50,13 @@ public class PathGenerator {
         return new File(path_template);
     }
 
-//    public File generatePath(String child) {
-//        return new File(path_template, child);
-//    }
+    //    public File generatePath(String child) {
+    //        return new File(path_template, child);
+    //    }
 
     public File generateFile() {
-        if (StringUtils.isEmpty(file_template)) throw new RuntimeException("file_template is empty");
+        if (StringUtils.isEmpty(file_template))
+            throw new RuntimeException("file_template is empty");
         File pwd = new File(System.getProperty("user.dir"));
         return new File(
                 pwd.toURI().relativize(new File(path_template, file_template).toURI()).getPath()

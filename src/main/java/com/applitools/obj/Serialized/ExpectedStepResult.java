@@ -3,6 +3,7 @@ package com.applitools.obj.Serialized;
 import java.util.HashMap;
 
 public class ExpectedStepResult {
+
     private String Tag;
     private HashMap Image;
     private Object LegacyMatchSettings;

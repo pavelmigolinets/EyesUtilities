@@ -28,9 +28,12 @@ public class DownloadImages extends ResultsAPIExtract {
     protected void runPerTest(TestInfo testInfo) throws IOException {
         List<Step> steps = testInfo.getSteps();
         for (Step step : steps) {
-            if (onlyBaselines) saveBaselineImage(step);
-            else if (onlyActuals) saveActualImage(step);
-            else saveImages(step);
+            if (onlyBaselines)
+                saveBaselineImage(step);
+            else if (onlyActuals)
+                saveActualImage(step);
+            else
+                saveImages(step);
         }
     }
 

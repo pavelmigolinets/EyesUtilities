@@ -1,6 +1,5 @@
 package com.applitools.Commands;
 
-
 import com.applitools.obj.Contexts.BranchesAPIContext;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
@@ -8,8 +7,8 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 @Parameters(commandDescription = "Performs copy based branch operations")
 public class CopyBranch extends LongTaskAPI {
-    private static ObjectMapper mapper = new ObjectMapper();
 
+    private static ObjectMapper mapper = new ObjectMapper();
 
     @Parameter(names = {"-k", "-key"}, description = "Branch management api key", required = true)
     private String branchKey;

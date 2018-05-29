@@ -6,6 +6,7 @@ import java.util.HashMap;
  * Created by yanir on 10/04/2017.
  */
 public class ActualStepResult {
+
     private HashMap Image;
     private HashMap Thumbprint;
     private Object ImageMatchSettings;

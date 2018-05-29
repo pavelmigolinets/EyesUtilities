@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Step {
+
     private static final String ARTIFACT_EXT = "png";
     private static final String BASELINE_ARTIFACT_TYPE = "baseline";
     private static final String ACTUAL_ARTIFACT_TYPE = "actual";
@@ -53,7 +54,6 @@ public class Step {
         }
     }
 
-
     public URL getExpectedImageUrl() throws MalformedURLException {
         return context.getImageUrl(expected.getImageId());
     }
@@ -87,6 +87,4 @@ public class Step {
     public Integer getIndex() {
         return index;
     }
-
-
 }

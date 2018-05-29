@@ -2,8 +2,6 @@ package com.applitools.Commands;
 
 import com.applitools.obj.Batches;
 import com.applitools.obj.PathGenerator;
-import com.applitools.obj.Serialized.BatchInfo;
-import com.applitools.obj.Contexts.ResultsAPIContext;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 import org.apache.velocity.Template;
@@ -81,7 +79,8 @@ public class Report extends ResultsAPI {
         PathGenerator baseGenerator = outPathGenerator.build(getSelfPathParams());
         VelocityContext context = new VelocityContext();
         Batches batches = new Batches(getUrls(), viewKey, baseGenerator);
-        if (batches.size() == 0) return null;
+        if (batches.size() == 0)
+            return null;
         context.internalPut("batches", batches);
         context.internalPut("numberTool", new NumberTool());
         context.internalPut("title", reportTitle);

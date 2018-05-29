@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Batches extends ArrayList<BatchInfo> {
+
     //Batches
     private int batchesPassed = 0;
     private int batchesFailed = 0;
@@ -39,7 +40,8 @@ public class Batches extends ArrayList<BatchInfo> {
         for (String url : urls) {
             ResultsAPIContext context = new ResultsAPIContext(url, viewKey);
             BatchInfo batchInfo = BatchInfo.get(context, pathGenerator);
-            if (batchInfo != null) this.add(batchInfo);
+            if (batchInfo != null)
+                this.add(batchInfo);
         }
 
         calculateMetrics();
@@ -238,7 +240,6 @@ public class Batches extends ArrayList<BatchInfo> {
     public float getStepsMissingRate() {
         return 100 * (float) stepsMissing / totalSteps;
     }
-
 
     //#endregion
 }

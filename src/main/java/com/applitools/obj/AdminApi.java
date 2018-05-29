@@ -3,7 +3,12 @@ package com.applitools.obj;
 import com.applitools.obj.Serialized.Admin.Account;
 import com.applitools.obj.Serialized.Admin.User;
 import org.apache.http.client.CookieStore;
-import org.apache.http.client.methods.*;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpDelete;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
+import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.cookie.Cookie;
 import org.apache.http.entity.StringEntity;
@@ -13,13 +18,13 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 public class AdminApi {
+
     public static final String GENERAL_API = "https://%s/api/admin/%s?format=json&userName=%s&userId=%s";
     private static final ObjectMapper mapper = new ObjectMapper();
     private static final String ACCOUNTS_API = "orgs/%s/accounts";
@@ -31,7 +36,6 @@ public class AdminApi {
     private final String orgId_;
 
     private User[] users;
-
 
     public String getServer() {
         return server_;
@@ -49,7 +53,7 @@ public class AdminApi {
         return orgId_;
     }
 
-    public AdminApi(String orgId, String username, String userId) throws MalformedURLException {
+    public AdminApi(String orgId, String username, String userId) {
         this("https://eyes.applitools.com", orgId, username, userId);
     }
 
@@ -82,10 +86,11 @@ public class AdminApi {
     public Account getAccount(String accountId) throws IOException {
         Account[] accounts = getAccounts();
         Optional<Account> match = Arrays.stream(accounts)
-                .filter(
-                        (Account a) -> a.getId().compareTo(accountId) == 0)
-                .findFirst();
-        if (match.isPresent()) return match.get();
+                                        .filter(
+                                                (Account a) -> a.getId().compareTo(accountId) == 0)
+                                        .findFirst();
+        if (match.isPresent())
+            return match.get();
         return null;
     }
 
@@ -118,7 +123,8 @@ public class AdminApi {
     }
 
     public User[] getUsers() throws IOException {
-        if (this.users != null) return users;
+        if (this.users != null)
+            return users;
         String users = String.format(USERS_API, orgId_, "");
         users = String.format(GENERAL_API, server_, users, username_, userId_);
         this.users = mapper.readValue(new URL(users), User[].class);

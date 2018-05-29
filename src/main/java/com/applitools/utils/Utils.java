@@ -1,7 +1,6 @@
 package com.applitools.utils;
 
 import com.sun.glass.ui.Size;
-import com.sun.xml.internal.ws.util.StringUtils;
 import org.apache.commons.io.FileUtils;
 
 import javax.imageio.stream.FileImageOutputStream;
@@ -18,6 +17,8 @@ import java.util.Calendar;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.TimeZone;
+
+import static org.apache.commons.lang.StringUtils.*;
 
 public class Utils {
 
@@ -45,7 +46,7 @@ public class Utils {
     public static String getEnumValues(Class type) {
         StringBuilder sb = new StringBuilder();
         for (Object val : EnumSet.allOf(type)) {
-            sb.append(StringUtils.capitalize(val.toString().toLowerCase()));
+            sb.append(capitalize(val.toString().toLowerCase()));
             sb.append('|');
         }
         return sb.substring(0, sb.length() - 1);

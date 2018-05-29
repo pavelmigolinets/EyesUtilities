@@ -9,7 +9,7 @@ import java.net.URL;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BaselineInfo {
-    private static String BASELINES_URL_TMPL = "https://%s/api/baselines?ApiKey=%s&format=json";
+    private static String BASELINES_URL_TMPL = "https://%s/api/baselines?accountId=%s&format=json";
     private static ObjectMapper mapper = new ObjectMapper();
     private String Id;
     private String BaseRev;

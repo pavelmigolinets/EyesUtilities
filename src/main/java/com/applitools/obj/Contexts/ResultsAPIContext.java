@@ -6,12 +6,12 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class ResultsAPIContext {
-    private static final String BATCHINFO_URL_TMPL = "https://%s/api/sessions/batches/%s?ApiKey=%s&format=json";
+    private static final String BATCHINFO_URL_TMPL = "https://%s/api/sessions/batches/%s?accountId=%s&format=json";
     private static final String BATCH_URL_TEMPLATE = "https://%s/app/batches/%s";
     private static final String TEST_APP_URL_TEMPLATE = "https://%s/app/sessions/%s/%s/";
-    private static final String TEST_API_URL_TEMPLATE = "https://%s/api/sessions/batches/%s/%s?ApiKey=%s&format=json";
-    private static final String IMAGE_URL_TEMPLATE = "https://%s/api/images/%s/?ApiKey=%s";
-    private static final String DIFF_URL_TEMPLATE = "https://%s/api/sessions/batches/%s/%s/steps/%s/diff?ApiKey=%s";
+    private static final String TEST_API_URL_TEMPLATE = "https://%s/api/sessions/batches/%s/%s?accountId=%s&format=json";
+    private static final String IMAGE_URL_TEMPLATE = "https://%s/api/images/%s/?accountId=%s";
+    private static final String DIFF_URL_TEMPLATE = "https://%s/api/sessions/batches/%s/%s/steps/%s/diff?accountId=%s";
 
     //private static ResultsAPIContext context_;
     private final ResultUrl url;
